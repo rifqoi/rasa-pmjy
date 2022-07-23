@@ -1,0 +1,20 @@
+version: "3.1"
+stories:
+  - story: keluhan air mati
+    steps:
+      - intent: air_mati
+      - action: action_validate_keluhan
+      - action: utter_ask_isi_alamat
+      - action: alamat_form
+      - active_loop: alamat_form
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: keterangan_air_mati_form
+      - active_loop: keterangan_air_mati_form
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_keluhan_air_mati_information
+      - action: action_post_keluhan
+      - action: utter_maaf

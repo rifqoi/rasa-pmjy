@@ -1,0 +1,148 @@
+version: "3.1"
+
+intents:
+  - greet
+  - mood_great
+  - subscribe
+  - inform_email
+  - inform_frequency
+  - air_mati
+  - affirm
+  - deny
+
+responses:
+  utter_greet:
+    - text: "Halo! Apa kabar kak?"
+    - text: "Halo kak, gimana hari nya kak?"
+
+  utter_happy:
+    - text: "Aku senang mendengarnya!"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_ask_email:
+    - text: "Email kakak apa ya?"
+    - text: "Kalo boleh tau email kakak apa ya?"
+
+  utter_ask_frequency:
+    - text: "Mau berapa sering dikirim email dari saya, kak?"
+
+  utter_konfirmasi_keluhan:
+    - buttons:
+        - payload: /affirm
+          title: "Yes"
+        - payload: /deny
+          title: "No"
+      text: "Apakah kakak ada masalah dengan {isi_keluhan}?"
+
+  utter_subscribed:
+    - text:
+        "Sudah dipasang kak! Coba cek {email} kakak buat konfirmasi langganan.
+        Kakak akan dikirim email sebanyak {frequency}"
+  utter_ask_alamat_lengkap:
+    - text: "Alamat Lengkap"
+  utter_ask_keterangan_keluhan:
+    - text: "Apakah ada keterangan lain kak?"
+  utter_keluhan_air_mati_information:
+    - buttons:
+        - payload: /affirm
+          title: "Yes"
+        - payload: /deny
+          title: "No"
+      text: "1. Keluhan: {isi_keluhan}\n2. Alamat: {alamat_lengkap}\n3. Kelurahan: {kelurahan}\n4. Kecamatan: {kecamatan}\n5. Kota: {kota}\n6. Keterangan: {keterangan_keluhan}.\n7. Durasi air mati: {durasi_mati} \n Apakah sudah benar informasi diatas kak?"
+  utter_maaf:
+    - text: "Mohon maaf atas keluhannya kak. Keluhan kakak akan kami tindak lanjut lebih jauh."
+  utter_ask_durasi_mati:
+    - text: "Sudah berapa lama air nya mati kak?"
+  utter_ask_isi_alamat:
+    - text: "Tolong isi data-data berikut kak."
+  utter_ask_kelurahan:
+    - text: "Kelurahan:"
+  utter_ask_kecamatan:
+    - text: "Kecamatan:"
+  utter_ask_kota:
+    - text: "Kota:"
+
+forms:
+  newsletter_form:
+    required_slots:
+      - email
+      - frequency
+  alamat_form:
+    required_slots:
+      - alamat_lengkap
+      - kelurahan
+      - kecamatan
+      - kota
+  keterangan_air_mati_form:
+    required_slots:
+      - durasi_mati
+      - keterangan_keluhan
+
+slots:
+  alamat_lengkap:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: alamat_form
+            requested_slot: alamat_lengkap
+  isi_keluhan:
+    type: text
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: keluhan_form
+            requested_slot: isi_keluhan
+  keterangan_keluhan:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: keterangan_air_mati_form
+            requested_slot: keterangan_keluhan
+  durasi_mati:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: keterangan_air_mati_form
+            requested_slot: durasi_mati
+  kelurahan:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: alamat_form
+            requested_slot: kelurahan
+  kecamatan:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: alamat_form
+            requested_slot: kecamatan
+  kota:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: alamat_form
+            requested_slot: kota
+
+actions:
+  - action_reset_all_slots
+  - action_validate_keluhan
+  - validate_keluhan_form
+  - action_post_keluhan
+entities:
+  - email
+  - frequency
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

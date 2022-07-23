@@ -1,0 +1,110 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - good morning
+      - good evening
+      - moi
+      - assalamualaikum
+      - ass wr wb
+      - samlekom
+      - oi
+      - eh cuy
+      - woe - woi
+      - bro
+      - cuyyyyyyyy
+      - helo
+      - halo
+      - selamat pagi
+      - pagi
+      - selamat siang
+      - siang
+      - sore
+      - selamat sore
+      - malam
+      - selamat malam
+      - shalom
+      - assalamualaikum wr wb
+
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - i am feeling very good
+      - i am great
+      - i am amazing
+      - super stoked
+      - extremely good
+      - baik
+      - alhamdulillah
+      - lumayan
+      - fine
+      - saya baik alhamdulillah
+      - hamdalah
+      - mantap
+      - ceria
+  - intent: subscribe
+    examples: |
+      - I want to get the newsletter
+      - Can you send me the newsletter?
+      - Can you sign me up for the newsletter?
+      - I want to subscribe to a newsletter.
+  - intent: inform_email
+    examples: |
+      - My email is [example@example.com](email)
+      - [random@example.com](email)
+      - Please send it to [anything@example.com](email)
+      - email ku [terserah@example.com](email)
+      - email saya itu [asdasd@example.com](email)
+      - Kalo email ku sih [asdasdasd@example.com](email)
+  - intent: inform_frequency
+    examples: |
+      - every week
+      - once a week
+      - twice per month
+      - sekali seminggu
+      - seminggu sekali
+      - sebulan sekali
+      - sebulan dua kali
+      - dua kali sebulan
+  - intent: air_mati
+    examples: |
+      - air saya mati udah 5 jam
+      - dirumah sekarang dari jam 6 air selalu mati gimana sih min
+      - Air mati setiap subuh dan Maghrib. Pak saya kerja masuk jam 7 pagi. Mana setiap jam 10 air udh mati. 
+      - Min air mati di daerah jakpus
+      - Min aer mati nih di rawa buaya cengkareng jakarta barat
+      - Air di rumah kseringan mati, malahan yg biasanya bisa ngalir ke lantai atas, udah 1 minggu ini ngga bisa ngalir
+      - Oy Air Mati nih, Jakarta Timur Kayumanis. Dua kali maghrib, kemarin orang mau shalat ied dimatiin juga. Maksudnya apaan sih ? Info permintaan maaf di IG juga tidak ada info apapun. 
+      - Bayar air naik. Padahal air ga pernah nyalah bener. Wkwkwkwk cape pak, ga cape dengerin sy komentar air mati mulu
+      - Min, setiap malam takbiran air mati terus. Lebaran kmrn sampai selesai shalat baru nyala. Parah banget sih sering banget mati!!!!!! Bayar ga pernah nunggak tp pelayananya parah banget
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+      - benar
+      - iya
+      - betul
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+      - salah
+      - tidak
+      - tidak mungkin

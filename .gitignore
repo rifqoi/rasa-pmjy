@@ -1,0 +1,7 @@
+venv
+# exclude everything from models folder
+models/*
+# except for .gitkeep, so that the folder itself is included
+!models/.gitkeep
+.env
+.rasa/*
