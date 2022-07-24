@@ -38,19 +38,19 @@ class ActionPostKeluhan(Action):
         keterangan = tracker.get_slot("keterangan_keluhan")
 
         # Backend side
-        # token_be = tracker.latest_message.get("metadata")["token"]
-        # url_be = "https://erudite-bonbon-352111.et.r.appspot.com/keluhans"
+        token_be = tracker.latest_message.get("metadata")["token"]
+        url_be = "https://erudite-bonbon-352111.et.r.appspot.com/keluhans"
 
-        # head_be = {"Authorization": "Bearer " + token_be}
-        # data_be = {
-        #     "jenis_keluhan": isi_keluhan,
-        #     "keluhan": raw_keluhan,
-        #     "kelurahan": kelurahan,
-        #     "kecamatan": kecamatan,
-        #     "kota_madya": kota,
-        # }
-        # response_be = requests.post(url_be, json=data_be, headers=head_be)
-        # print(response_be)
+        head_be = {"Authorization": "Bearer " + token_be}
+        data_be = {
+            "jenis_keluhan": isi_keluhan,
+            "keluhan": raw_keluhan,
+            "kelurahan": kelurahan,
+            "kecamatan": kecamatan,
+            "kota_madya": kota,
+        }
+        response_be = requests.post(url_be, json=data_be, headers=head_be)
+        print(response_be)
 
         # Oracle side
         print(TOKEN_ORACLE)
