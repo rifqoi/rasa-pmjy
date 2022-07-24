@@ -7,16 +7,9 @@ from rasa_sdk.types import DomainDict
 from dotenv import load_dotenv
 import requests
 import os
-import pandas as pd
 
 load_dotenv()
 TOKEN_ORACLE = os.environ.get("TOKEN")
-
-df_jakarta = pd.read_csv("./data_wilayah_jakarta.csv")
-
-df_jakarta.nama_provinsi = df_jakarta["nama_provinsi"].str.lower()
-df_jakarta["nama_kabupaten/kota"] = df_jakarta["nama_kabupaten/kota"].str.lower()
-df_jakarta.nama_kelurahan = df_jakarta["nama_kelurahan"].str.lower()
 
 
 class ActionPostKeluhan(Action):
