@@ -3,12 +3,18 @@ version: "3.1"
 intents:
   - greet
   - mood_great
+  - mood_unhappy
+  - bot_challenge
   - subscribe
   - inform_email
   - inform_frequency
   - air_mati
   - affirm
   - deny
+  - air_kotor
+  - daftar
+  - faq_daftar
+  - faq_biaya_terlambat
 
 responses:
   utter_greet:
@@ -18,8 +24,14 @@ responses:
   utter_happy:
     - text: "Aku senang mendengarnya!"
 
+  utter_sad:
+    - text: "Kok sedih sih kak? :("
+
+  utter_cheer_up:
+    - text: "Semoga hari kakak jadi lebih menyenangkan. :)"
+
   utter_iamabot:
-    - text: "I am a bot, powered by Rasa."
+    - text: "Halo saya chatbot dari PAM JAYA :D"
 
   utter_ask_email:
     - text: "Email kakak apa ya?"
@@ -41,20 +53,17 @@ responses:
         "Sudah dipasang kak! Coba cek {email} kakak buat konfirmasi langganan.
         Kakak akan dikirim email sebanyak {frequency}"
   utter_ask_alamat_lengkap:
-    - text: "Alamat Lengkap"
+    - text: "Alamat Lengkap:"
   utter_ask_keterangan_keluhan:
     - text: "Apakah ada keterangan lain kak?"
   utter_keluhan_air_mati_information:
-    - buttons:
-        - payload: /affirm
-          title: "Yes"
-        - payload: /deny
-          title: "No"
-      text: "1. Keluhan: {isi_keluhan}\n2. Alamat: {alamat_lengkap}\n3. Kelurahan: {kelurahan}\n4. Kecamatan: {kecamatan}\n5. Kota: {kota}\n6. Keterangan: {keterangan_keluhan}.\n7. Durasi air mati: {durasi_mati} \n Apakah sudah benar informasi diatas kak?"
+    - text: "Data yang akan dikirim: \n 1. Keluhan: {isi_keluhan}\n 2. Alamat: {alamat_lengkap}\n 3. Kelurahan: {kelurahan}\n 4. Kecamatan: {kecamatan}\n 5. Kota: {kota}\n 6. Keterangan: {keterangan_keluhan}.\n 7. Durasi air mati: {durasi_keluhan} \n"
+  utter_keluhan_air_kotor_information:
+    - text: "Data yang akan dikirim: \n 1. Keluhan: {isi_keluhan}\n 2. Alamat: {alamat_lengkap}\n 3. Kelurahan: {kelurahan}\n 4. Kecamatan: {kecamatan}\n 5. Kota: {kota}\n 6. Keterangan: {keterangan_keluhan}.\n 7. Durasi air kotor: {durasi_keluhan} \n"
   utter_maaf:
     - text: "Mohon maaf atas keluhannya kak. Keluhan kakak akan kami tindak lanjut lebih jauh."
-  utter_ask_durasi_mati:
-    - text: "Sudah berapa lama air nya mati kak?"
+  utter_ask_durasi_keluhan:
+    - text: "Sudah berapa lama keluhannya terjadi kak?"
   utter_ask_isi_alamat:
     - text: "Tolong isi data-data berikut kak."
   utter_ask_kelurahan:
@@ -63,6 +72,12 @@ responses:
     - text: "Kecamatan:"
   utter_ask_kota:
     - text: "Kota:"
+
+  # FAQ
+  utter_harga_berlangganan:
+    - text: "Untuk biaya berlangganan kakak bisa cek disini ya: https://www.pamjaya.co.id/infopelanggan/biayapasang"
+  utter_denda_terlambat:
+    - text: "Untuk denda keterlambatan kaka bisa cek disini ya: https://www.pamjaya.co.id/infopelanggan/denda"
 
 forms:
   newsletter_form:
@@ -77,7 +92,11 @@ forms:
       - kota
   keterangan_air_mati_form:
     required_slots:
-      - durasi_mati
+      - durasi_keluhan
+      - keterangan_keluhan
+  keterangan_air_kotor_form:
+    required_slots:
+      - durasi_keluhan
       - keterangan_keluhan
 
 slots:
@@ -105,13 +124,17 @@ slots:
         conditions:
           - active_loop: keterangan_air_mati_form
             requested_slot: keterangan_keluhan
-  durasi_mati:
+          - active_loop: keterangan_air_kotor_form
+            requested_slot: keterangan_keluhan
+  durasi_keluhan:
     type: text
     mappings:
       - type: from_text
         conditions:
           - active_loop: keterangan_air_mati_form
-            requested_slot: durasi_mati
+            requested_slot: durasi_keluhan
+          - active_loop: keterangan_air_kotor_form
+            requested_slot: durasi_keluhan
   kelurahan:
     type: text
     mappings:
@@ -139,6 +162,7 @@ actions:
   - action_validate_keluhan
   - validate_keluhan_form
   - action_post_keluhan
+  # - validate_alamat_form
 entities:
   - email
   - frequency

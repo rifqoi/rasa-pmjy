@@ -1,13 +1,3 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-
 from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Action, Tracker, FormValidationAction, ValidationAction
 from rasa_sdk.executor import CollectingDispatcher
@@ -17,22 +7,16 @@ from rasa_sdk.types import DomainDict
 from dotenv import load_dotenv
 import requests
 import os
-
-# class ActionHelloWorld(Action):
-
-#     def name(self) -> Text:
-#         return "action_hello_world"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         dispatcher.utter_message(text="Hello World!")
-
-#         return []
+import pandas as pd
 
 load_dotenv()
-TOKEN = os.environ.get("TOKEN")
+TOKEN_ORACLE = os.environ.get("TOKEN")
+
+df_jakarta = pd.read_csv("./data_wilayah_jakarta.csv")
+
+df_jakarta.nama_provinsi = df_jakarta["nama_provinsi"].str.lower()
+df_jakarta["nama_kabupaten/kota"] = df_jakarta["nama_kabupaten/kota"].str.lower()
+df_jakarta.nama_kelurahan = df_jakarta["nama_kelurahan"].str.lower()
 
 
 class ActionPostKeluhan(Action):
@@ -45,18 +29,41 @@ class ActionPostKeluhan(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        head = {"Authorization": "Bearer " + TOKEN}
+        raw_keluhan = "air mati anjeeengg"
         isi_keluhan = tracker.get_slot("isi_keluhan")
         alamat = tracker.get_slot("alamat_lengkap")
+        kelurahan = tracker.get_slot("kelurahan")
+        kecamatan = tracker.get_slot("kecamatan")
+        kota = tracker.get_slot("kota")
         keterangan = tracker.get_slot("keterangan_keluhan")
-        data = {
-            "feedback_type": isi_keluhan,
-            "comments": keterangan,
-        }
-        url = "https://apigw.withoracle.cloud/pamjaya/feedback/feedback/"
 
-        response = requests.post(url, json=data, headers=head)
-        print(response)
+        # Backend side
+        # token_be = tracker.latest_message.get("metadata")["token"]
+        # url_be = "https://erudite-bonbon-352111.et.r.appspot.com/keluhans"
+
+        # head_be = {"Authorization": "Bearer " + token_be}
+        # data_be = {
+        #     "jenis_keluhan": isi_keluhan,
+        #     "keluhan": raw_keluhan,
+        #     "kelurahan": kelurahan,
+        #     "kecamatan": kecamatan,
+        #     "kota_madya": kota,
+        # }
+        # response_be = requests.post(url_be, json=data_be, headers=head_be)
+        # print(response_be)
+
+        # Oracle side
+        print(TOKEN_ORACLE)
+        head_oracle = {
+            "Authorization": "Bearer " + TOKEN_ORACLE,
+            "Content-Type": "application/json",
+        }
+        data_oracle = {"feedback_type": isi_keluhan, "comments": keterangan}
+        url_oracle = "https://apigw.withoracle.cloud/pamjaya/feedback/feedback/"
+        response_oracle = requests.post(
+            url=url_oracle, json=data_oracle, headers=head_oracle
+        )
+        print(response_oracle)
 
         dispatcher.utter_message("Keluhan kakak berhasil dikirim!")
 
@@ -111,6 +118,8 @@ class ValidateKeluhan(Action):
         last_intent = tracker.get_intent_of_latest_message()
         if last_intent == "air_mati":
             msg_text = "Air Mati"
+        elif last_intent == "air_kotor":
+            msg_text = "Air Kotor"
         else:
             msg_text = None
 
@@ -197,3 +206,23 @@ class ValidateKeluhanForm(FormValidationAction):
 
         dispatcher.utter_message("Kakak mau komplain tentang apa?", buttons=buttons)
         return {"isi_keluhan", None}
+
+
+# class ValidateAlamatForm(FormValidationAction):
+#     def name(self) -> Text:
+#         return "validate_alamat_form"
+
+#     def validate_kelurahan(
+#         self,
+#         value: Text,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: DomainDict,
+#     ) -> Dict[Text, Any]:
+
+#         nama_kelurahan = tracker.get_slot("kelurahan")
+#         if value in df_jakarta["kelurahan"].unique():
+#             return {"kelurahan": value}
+#         else:
+#             dispatcher.utter_message(f"Kelurahan {value} tidak terdapat di Jakarta.")
+#             return {"kelurahan": None}

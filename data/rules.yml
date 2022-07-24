@@ -5,3 +5,15 @@ rules:
     steps:
       - intent: greet
       - action: utter_greet
+  - rule: user tanya tentang cara berlangganan (new connection)
+    steps:
+      - intent: faq_daftar
+      - action: utter_harga_berlangganan
+  - rule: user tanya tentang denda keterlambatan
+    steps:
+      - intent: faq_biaya_terlambat
+      - action: utter_denda_terlambat
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot

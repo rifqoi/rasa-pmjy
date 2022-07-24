@@ -8,15 +8,13 @@ stories:
       - intent: mood_great
       - action: utter_happy
 
-  # - story: greet and subscribe
-  #   steps:
-  #     - intent: greet
-  #     - action: utter_greet
-  #     - intent: subscribe
-  #     - action: newsletter_form
-  #     - active_loop: newsletter_form
-  #     - active_loop: null
-  #     - action: utter_subscribed
+  - story: unhappy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_sad
+      - action: utter_cheer_up
 
   - story: greet and subscribe
     steps:
@@ -28,17 +26,6 @@ stories:
       - active_loop: null
       - action: utter_subscribed
 
-  # - story: keluhan air mati sukses
-  #   steps:
-  #     - intent: air_mati
-  #     - action: action_validate_keluhan
-  #     - action: keterangan_air_mati_form
-  #     - active_loop: keterangan_air_mati_form
-  #     - active_loop: null
-  #     - action: utter_keluhan_air_mati_information
-  #     - intent: affirm
-  #     - action: action_post_keluhan
-  #     - action: utter_maaf
   - story: keluhan air mati
     steps:
       - intent: air_mati
@@ -70,9 +57,9 @@ stories:
       - action: keterangan_air_mati_form
       - active_loop: keterangan_air_mati_form
       - slot_was_set:
-          - requested_slot: durasi_mati
+          - requested_slot: durasi_keluhan
       - slot_was_set:
-          - durasi_mati: 6 jam
+          - durasi_keluhan: 6 jam
       - slot_was_set:
           - requested_slot: keterangan_keluhan
       - slot_was_set:
@@ -81,53 +68,51 @@ stories:
           - requested_slot: null
       - active_loop: null
       - action: utter_keluhan_air_mati_information
-      - intent: affirm
       - action: action_post_keluhan
       - action: utter_maaf
+      - action: action_reset_all_slots
 
-  # - story: keluhan air mati gagal
-  #   steps:
-  #     - intent: air_mati
-  #     - action: action_validate_keluhan
-  #     - slot_was_set:
-  #         - isi_keluhan: Air Mati
-  #     - action: utter_ask_isi_alamat
-  #     - action: alamat_form
-  #     - active_loop: alamat_form
-  #     - slot_was_set:
-  #         - requested_slot: alamat_lengkap
-  #     - slot_was_set:
-  #         - alamat_lengkap: jalan singgalang iii
-  #     - slot_was_set:
-  #         - requested_slot: kelurahan
-  #     - slot_was_set:
-  #         - kelurahan: mekarsari
-  #     - slot_was_set:
-  #         - requested_slot: kecamatan
-  #     - slot_was_set:
-  #         - kecamatan: cimanggis
-  #     - slot_was_set:
-  #         - requested_slot: kota
-  #     - slot_was_set:
-  #         - kota: depok
-  #     - slot_was_set:
-  #         - requested_slot: null
-  #     - active_loop: null
-  #     - action: keterangan_air_mati_form
-  #     - active_loop: keterangan_air_mati_form
-  #     - slot_was_set:
-  #         - requested_slot: durasi_mati
-  #     - slot_was_set:
-  #         - durasi_mati: 6 jam
-  #     - slot_was_set:
-  #         - requested_slot: keterangan_keluhan
-  #     - slot_was_set:
-  #         - keterangan_keluhan: air mati
-  #     - slot_was_set:
-  #         - requested_slot: null
-  #     - active_loop: null
-  #     - action: utter_keluhan_air_mati_information
-  #     - intent: deny
-  #     - action:
-  #     - action: action_post_keluhan
-  #     - action: utter_maaf
+  - story: keluhan air kotor
+    steps:
+      - intent: air_kotor
+      - action: action_validate_keluhan
+      - slot_was_set:
+          - isi_keluhan: Air Mati
+      - action: utter_ask_isi_alamat
+      - action: alamat_form
+      - slot_was_set:
+          - requested_slot: alamat_lengkap
+      - slot_was_set:
+          - alamat_lengkap: jalan singgalang iii
+      - slot_was_set:
+          - requested_slot: kelurahan
+      - slot_was_set:
+          - kelurahan: mekarsari
+      - slot_was_set:
+          - requested_slot: kecamatan
+      - slot_was_set:
+          - kecamatan: cimanggis
+      - slot_was_set:
+          - requested_slot: kota
+      - slot_was_set:
+          - kota: depok
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: keterangan_air_kotor_form
+      - active_loop: keterangan_air_kotor_form
+      - slot_was_set:
+          - requested_slot: durasi_keluhan
+      - slot_was_set:
+          - durasi_keluhan: 6 jam
+      - slot_was_set:
+          - requested_slot: keterangan_keluhan
+      - slot_was_set:
+          - keterangan_keluhan: air kotor
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_keluhan_air_kotor_information
+      - action: action_post_keluhan
+      - action: utter_maaf
+      - action: action_reset_all_slots

@@ -6,6 +6,7 @@ nlu:
       - hey
       - hello
       - hi
+      - hai
       - good morning
       - good evening
       - moi
@@ -50,6 +51,30 @@ nlu:
       - hamdalah
       - mantap
       - ceria
+
+  - intent: mood_unhappy
+    examples: |
+      - my day was horrible
+      - I am sad
+      - I don't feel very well
+      - I am disappointed
+      - super sad
+      - I'm so sad
+      - sad
+      - very sad
+      - unhappy
+      - not good
+      - not very good
+      - extremly sad
+      - so saad
+      - so sad
+      - jelek
+      - sedih
+      - gak baik
+      - aku sedih
+      - tidak baik baik saja
+      - tidak baik
+
   - intent: subscribe
     examples: |
       - I want to get the newsletter
@@ -108,3 +133,96 @@ nlu:
       - salah
       - tidak
       - tidak mungkin
+  - intent: air_kotor
+    examples: |
+      - air pam kotor banget bang
+      - dari tadi siang baru keluar nih air pam...itupun masih kotor.
+      - belinya air pam dapetnya janji jiwa alias item + kotor banget 👎🏼👎🏼👎🏼
+      - gitu ya, padahal udah pake air pam tapi masih kotor ya
+      - wehhh iyaa dari kmren air pam kotor sekrng malah tambah kotor adehhh
+      - lah sekarang air pam nya kotor, gimana dong?
+      - ini kenapa air pam dirumah gue kotor banget ya butek kaya ketumpahan semen;(
+      - ada apa dengan air pam sore ini sampe sekarang kok airnya kotor bgt, butek, keruh gitu
+      - selamat malam... mau complaint... kenapa air pam di matraman penegak gang iv kotor y???
+      - air pam kp. makasar kotor nihh :((
+      - pam area pwt selatan blas ga beres. air keruh terus, nyuci baju yang ada bajunya kotor
+      - mau nangis, air pam nya kotor banget. mau nyuci bedcover biar bersih malah begini 😭😭😭
+      - kok air pam nya kotor
+      - air nya kotor
+      - air nya kotor udah dari tadi pagi
+  - intent: faq_daftar
+    examples: |
+      - cara mendaftar di pam jaya bagaimana ya?
+      - saya ingin daftar 
+      - kalau mau berlangganan pergi kemana ya
+      - saya ingin berlangganan
+      - saya mau daftar di pam jaya
+      - saya mau langganan
+      - aku mau berlangganan
+      - tarif harga untuk berlangganan berapa ya 
+      - biaya untuk berlangganan berapa
+      - per bulan bayar berapa ya
+  - intent: faq_biaya_terlambat
+    examples: |
+      - denda untuk satu bulan berapa ya
+      - kalau terlambat dendanya berapa ya
+      - saya terlambat satu bulan, saya harus bayar berapa ya
+  - intent: bot_challenge
+    examples: |
+      - Ar you a bot ?
+      - Are you a bot
+      - Are you a chat bot?
+      - Are you the bot?
+      - Hi there, are you the bot?
+      - are you a BOT
+      - are you a Skynet ?
+      - are you a bot
+      - are you a bot ?
+      - are you a bot?
+      - are you a chatbot
+      - are you a rasa bot?
+      - are you a real bot?
+      - are you a robot
+      - are you ai
+      - are you artificial
+      - are you artificial intelligence
+      - are you bot
+      - are you bot?
+      - are you rasa bot?
+      - are you real
+      - are you real lol
+      - are you really a bot
+      - are you robot
+      - are you sure that you're a bot?
+      - bot?
+      - cuz you are a bot
+      - i guess you are a chatbot
+      - oh are you chatbot?
+      - tell me, are you a bot?
+      - what are you, a bot?
+      - you are a robot
+      - you are ai
+      - you are chatbot
+      - you're a bot
+      - you robo
+      - real bot then?
+      - are you really a bbot?
+      - elu siapa
+      - kamu siapa
+      - kamu bot ya
+      - kamu bukan manusia?
+      - kamu manusia apa bot
+      - kamu robot apa manusia
+      - lu robot ya
+
+  - synonym: harga
+    examples: |
+      - tarif
+      - biaya
+
+  - synonym: kamu
+    examples: |
+      - lu
+      - elu
+      - anda
+      - km
